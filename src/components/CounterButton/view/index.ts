@@ -9,6 +9,11 @@ export const getCounterButtonView = (
       <button id="incrementBtn" type="button">+</button>
       <button id="decrementBtn" type="button">-</button>
       <span>Счётчик: ${model.counter}</span>
+      <span>${(function () {
+        if (model.counter === 0) return "&#128528;";
+        if (model.counter > 0) return "&#128512;";
+        if (model.counter < 0) return "&#129314;";
+      })()}</span>
     </div>
   </div>`,
   getIncrementBtn: () => parent.querySelector<HTMLDivElement>("#incrementBtn"),
