@@ -10,6 +10,7 @@ interface ICounterButtonProps {
   eventSetter: () => void;
 }
 
+// TODO унифицировать под общую ф-ю / класс
 export function CounterButton({
   parent,
   model,
