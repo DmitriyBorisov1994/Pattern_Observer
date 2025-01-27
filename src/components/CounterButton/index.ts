@@ -12,25 +12,28 @@ interface ICounterButtonProps {
   controller?: CounterButtonController;
 }
 
+const defaultController = new CounterButtonController();
+
 // TODO унифицировать под общую ф-ю / класс
 export function CounterButton({
   parent,
   model,
-  controller = new CounterButtonController(),
+  controller = defaultController,
 }: ICounterButtonProps) {
   const init = () => {
-    const { view, getIncrementBtn, getDecrementBtn } = getCounterButtonView(
-      model.model
-    );
     if (parent) {
+      const { view, getIncrementBtn, getDecrementBtn } = getCounterButtonView(
+        model.model,
+        parent
+      );
       parent.innerHTML = view;
+      getIncrementBtn()?.addEventListener("click", () => {
+        model.setModel(controller.increment(model.model));
+      });
+      getDecrementBtn()?.addEventListener("click", () => {
+        model.setModel(controller.decrement(model.model));
+      });
     }
-    getIncrementBtn()?.addEventListener("click", () => {
-      model.setModel(controller.increment(model.model));
-    });
-    getDecrementBtn()?.addEventListener("click", () => {
-      model.setModel(controller.decrement(model.model));
-    });
   };
 
   init();

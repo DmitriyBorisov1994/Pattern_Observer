@@ -1,6 +1,9 @@
 import { ICounterButtonModel } from "../model";
 
-export const getCounterButtonView = (model: ICounterButtonModel) => ({
+export const getCounterButtonView = (
+  model: ICounterButtonModel,
+  parent: HTMLElement
+) => ({
   view: `<div>
     <div class="card">
       <button id="incrementBtn" type="button">+</button>
@@ -8,8 +11,6 @@ export const getCounterButtonView = (model: ICounterButtonModel) => ({
       <span>Счётчик: ${model.counter}</span>
     </div>
   </div>`,
-  getIncrementBtn: () =>
-    document.querySelector<HTMLDivElement>("#incrementBtn"),
-  getDecrementBtn: () =>
-    document.querySelector<HTMLDivElement>("#decrementBtn"),
+  getIncrementBtn: () => parent.querySelector<HTMLDivElement>("#incrementBtn"),
+  getDecrementBtn: () => parent.querySelector<HTMLDivElement>("#decrementBtn"),
 });
