@@ -6,6 +6,7 @@ export class Observable<T> {
   constructor(model: T) {
     this.model = model;
     this.observers = [];
+    this.notify();
   }
   // При изменении модели оповещаем подписчиков
   setModel(model: T) {

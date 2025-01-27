@@ -1,7 +1,15 @@
 import { ICounterButtonModel } from "../model";
 
-export const getCounterButtonView = (model: ICounterButtonModel) => `<div>
+export const getCounterButtonView = (model: ICounterButtonModel) => ({
+  view: `<div>
     <div class="card">
-      <button id="counter" type="button">Счётчик: ${model.counter}</button>
+      <button id="incrementBtn" type="button">+</button>
+      <button id="decrementBtn" type="button">-</button>
+      <span>Счётчик: ${model.counter}</span>
     </div>
-  </div>`;
+  </div>`,
+  getIncrementBtn: () =>
+    document.querySelector<HTMLDivElement>("#incrementBtn"),
+  getDecrementBtn: () =>
+    document.querySelector<HTMLDivElement>("#decrementBtn"),
+});
