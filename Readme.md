@@ -27,9 +27,9 @@ npm run dev
 
 ## Какие ещё паттерны были использованы
 
-[Module Pattern](https://www.patterns.dev/vanilla/module-pattern)
+### [Module Pattern](https://www.patterns.dev/vanilla/module-pattern)
 см. общую структуру проекта
-[High Order Function](https://www.geeksforgeeks.org/javascript-higher-order-functions/) включая [Composition of Functions](https://www.geeksforgeeks.org/composition-of-functions/)
+### [High Order Function](https://www.geeksforgeeks.org/javascript-higher-order-functions/) включая [Composition of Functions](https://www.geeksforgeeks.org/composition-of-functions/)
 см. src\utils\createView.ts
 
 Так же в этом небольшом примере целился в применение шаблонов MVC/MVVM, получилось скорее MVVM
