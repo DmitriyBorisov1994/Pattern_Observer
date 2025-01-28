@@ -1,4 +1,4 @@
-import { IController } from "../../../utils/IController";
+import { IController } from "../../../types/IController";
 import { ICounterButtonModel } from "../model";
 
 class CounterButtonController

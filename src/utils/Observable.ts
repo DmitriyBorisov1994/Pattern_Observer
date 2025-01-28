@@ -1,28 +1,21 @@
 export class Observable<T> {
-  // Идея следующая Observable работает с определенной моделью данных
-  model: T;
-  // А список подпичиков рендер функции, которые завязаны на конкретной модели
-  observers: ((model: T) => void)[];
+  state: T;
+  observers: ((state: T) => void)[];
   constructor(model: T) {
-    this.model = model;
+    this.state = model;
     this.observers = [];
-    this.notify();
   }
-  // При изменении модели оповещаем подписчиков
-  setModel(model: T) {
-    this.model = model;
-    this.notify(this.model);
+  setState(state: T) {
+    this.state = state;
+    this.notify(this.state);
   }
-  // Добавляем подписчиков
-  subscribe(func: (model: T) => void) {
+  subscribe(func: (state: T) => void) {
     this.observers.push(func);
   }
-  // Удаляем подпичиков. Не используется
-  unsubscribe(func: (model?: T) => void) {
+  unsubscribe(func: (state?: T) => void) {
     this.observers = this.observers.filter((observer) => observer !== func);
   }
-  // Функция оповещения подписчиков
-  notify(model: T = this.model) {
-    this.observers.forEach((observer) => observer(model));
+  notify(state: T = this.state) {
+    this.observers.forEach((observer) => observer(state));
   }
 }

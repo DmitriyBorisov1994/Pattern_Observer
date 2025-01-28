@@ -1,42 +1,26 @@
-import { Observable } from "../../utils/Observable";
+import { Observable, createView } from "../../utils";
 import { ICounterButtonModel } from "./model";
 import { getCounterButtonView } from "./view";
-import CounterButtonController from "./controller/CounterButtonController";
+import CounterButtonController from "./controller";
 
 export { getCounterButtonView } from "./view";
 export type { ICounterButtonModel } from "./model";
 
 interface ICounterButtonProps {
-  parent: HTMLElement | null;
-  model: Observable<ICounterButtonModel>;
-  controller?: CounterButtonController;
+  onIncrement?: () => void;
+  onDecrement?: () => void;
 }
 
 const defaultController = new CounterButtonController();
+const observable = new Observable<ICounterButtonModel>({ counter: 0 });
 
-// TODO унифицировать под общую ф-ю / класс
-export function CounterButton({
-  parent,
-  model,
-  controller = defaultController,
-}: ICounterButtonProps) {
-  const init = () => {
-    if (parent) {
-      const { view, getIncrementBtn, getDecrementBtn } = getCounterButtonView(
-        model.model,
-        parent
-      );
-      parent.innerHTML = view;
-      getIncrementBtn()?.addEventListener("click", () => {
-        model.setModel(controller.increment(model.model));
-      });
-      getDecrementBtn()?.addEventListener("click", () => {
-        model.setModel(controller.decrement(model.model));
-      });
-    }
-  };
-
-  init();
-
-  model.subscribe(init);
-}
+export const CounterButton = createView<
+  ICounterButtonModel,
+  ICounterButtonProps
+>(observable, (model: ICounterButtonModel) => {
+  const onIncrement = () =>
+    observable.setState(defaultController.dispatch(model, "increment"));
+  const onDecrement = () =>
+    observable.setState(defaultController.dispatch(model, "decrement"));
+  return () => getCounterButtonView(model, onIncrement, onDecrement);
+});
